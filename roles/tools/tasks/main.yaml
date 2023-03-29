@@ -1,0 +1,15 @@
+---
+- name: Install vim
+  apt:
+    name:
+      - vim
+    state: present
+- name: Install tmux
+  apt:
+    name:
+      - tmux
+- name: Install htop
+  apt:
+    name:
+      - htop
+

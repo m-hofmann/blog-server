@@ -1,0 +1,11 @@
+---
+- name: Install nginx
+  apt:
+    name: nginx
+    state: latest
+    update_cache: yes
+- name: Open ufw firewall
+  command:
+    cmd: "ufw allow 'Nginx HTTP'"
+
+

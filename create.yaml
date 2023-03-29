@@ -1,0 +1,34 @@
+---
+- name: Setup Hetzner Cloud Server
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  remote_user: root
+  vars_files:
+    - "./host_vars/blog-server.yaml"
+  tasks:
+    - name: include vault
+      ansible.builtin.include_vars:
+        file: credentials.yaml
+    - name: Add SSH key to HCloud Console
+      hcloud_ssh_key:
+        name: id_rsa.pub
+        api_token: "{{ hcloud_token }}"
+        public_key: "{{lookup('file', '~/.ssh/id_rsa.pub')}}"
+        state: present
+    - name: Create blog server
+      hcloud_server:
+        name: blog-server
+        api_token: "{{ hcloud_token }}"
+        server_type: cx11
+        image: debian-11
+        location: nbg1
+        backups: false
+        ssh_keys:
+          - id_rsa.pub
+        labels:
+          os: debian
+          type: web
+        state: present
+      register: server
+

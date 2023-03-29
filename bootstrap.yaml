@@ -1,0 +1,11 @@
+---
+- hosts: all
+  remote_user: root
+  vars_files:
+    - 'credentials.yaml'
+  roles:
+    - apt_upgrade
+    - tools
+    - fail2ban
+    - unattended-upgrades
+    - nginx

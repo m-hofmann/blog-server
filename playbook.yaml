@@ -1,0 +1,21 @@
+---
+- name: Setup Hetzner Cloud Server
+  hosts: localhosts
+  connection: local
+  gather_facts: False
+  user: root
+  tasks:
+    - name: Add SSH key
+      hcloud_ssh_key:
+        name: id_rsa.pub
+        public_key: "{{lopokup('file', '~/.ssh/id_rsa.pub')}}"
+    - name: Create blog server
+      server_type: cx11
+      image: debian-11
+      location: nbg1
+      backups: false
+      ssh_keys:
+        - id_rsa.pub
+      state: present
+
+

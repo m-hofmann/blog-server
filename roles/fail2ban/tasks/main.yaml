@@ -1,0 +1,12 @@
+- name: Install fail2ban
+  apt:
+    name: fail2ban
+    state: present
+- name: Copy fail2ban.conf
+  copy: src=jail.local dest=/etc/fail2ban/jail.local
+- name: Restart fail2ban
+  systemd:
+    name: fail2ban.service
+    state: restarted
+    daemon_reload: true
+

@@ -1,0 +1,5 @@
+---
+- name: Install iptables
+  apt:
+    name:
+      - iptables-persistent
