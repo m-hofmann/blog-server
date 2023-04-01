@@ -1,5 +1,3 @@
-all:
-  hosts: 
-    blog.martin-hofmann.me:
-      hostname: "blog-server"
+domain_name: "blog.martin-hofmann.me"
+hostname: "blog-server"
 
