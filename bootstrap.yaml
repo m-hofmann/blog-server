@@ -7,5 +7,7 @@
     - apt_upgrade
     - tools
     - fail2ban
+    - firewall
     - unattended-upgrades
     - nginx
+       
