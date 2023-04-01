@@ -1,12 +1,14 @@
 ---
 - name: Install nginx
   apt:
-    name: nginx
+    name: 
+      - nginx
+      - certbot
+      - python3-certbot-nginx
     state: latest
     update_cache: yes
 - name: Open ufw firewall
-  command:
-    cmd: "ufw allow 'Nginx HTTP'"
+  shell: "ufw delete allow 'Nginx HTTP' && ufw allow 'Nginx Full'"
 - name: Create www directory
   file:
     path: /var/www/{{ domain_name }}
@@ -25,5 +27,8 @@
     group: root
     mode: '0644'
   notify: restart nginx
+- name: Initial letsencrypt setup
+  command:
+    cmd: "certbot run --nginx --non-interactive --agree-tos -m {{ letsencrypt_mail  }} -d {{ domain_name }}"
 
 
