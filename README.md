@@ -18,7 +18,10 @@ ansible-playbook create.yaml --vault-password-file secrets/vault.password
 
 - Installs basic tools (vim, tmux, htop)
 - Set up basic hardening (fail2ban)
-- Installs Nginx
+- Installs Nginx and configures it
+- Setups up certbot and provides a Let's Encrypt certificate
+  - Variables `domain_name` and `letsencrypt_mail` are taken from host_vars
+  - mail address is encrypted using ansible vault
 
 ```
 ansible-playbook bootstrap.yaml --vault-password-file secrets/vault.password -i inventories/hosts.hcloud.yaml
