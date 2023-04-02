@@ -19,6 +19,11 @@
     path: /etc/nginx/sites-enabled/default
     state: absent
   notify: restart nginx
+- name: Copy nginx global conf
+  copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+  notify: restart nginx
 - name: Copy nginx site conf
   template:
     src: site.conf.j2
