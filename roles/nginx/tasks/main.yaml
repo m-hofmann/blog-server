@@ -34,7 +34,7 @@
   notify: restart nginx
 - name: Initial letsencrypt setup
   command:
-    cmd: "certbot certonly --non-interactive --webroot -w /var/www/{{ domain_name}} --agree-tos -m {{ letsencrypt_mail  }} -d {{ domain_name }}"
+    cmd: "certbot certonly --non-interactive --webroot -w /var/www/{{ domain_name}} --agree-tos -m {{ letsencrypt_mail  }} -d {{ domain_name }} --rsa-key-size 4096"
   notify: restart nginx
 
 
