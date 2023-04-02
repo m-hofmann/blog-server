@@ -21,7 +21,4 @@
 # See jail.conf(5) man page for more information
 [DEFAULT]
 bantime = 1h
-#
-[sshd]
-enabled = true
-#
+

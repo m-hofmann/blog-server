@@ -4,9 +4,18 @@
     state: present
 - name: Copy fail2ban.conf
   copy: src=jail.local dest=/etc/fail2ban/jail.local
+- name: Copy sshd jail
+  copy: src=sshd.local dest=/etc/fail2ban/jail.d/sshd.local
+- name: Copy nginx jail
+  copy: src=nginx.local dest=/etc/fail2ban/jail.d/nginx.local
+- name: Restart nginx
+  systemd:
+    name: nginx.service
+    state: restarted
 - name: Restart fail2ban
   systemd:
     name: fail2ban.service
     state: restarted
+    # reloads systemd settings, needed if fail2ban is freshly installed
     daemon_reload: true
 
