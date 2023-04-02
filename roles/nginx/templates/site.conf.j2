@@ -9,6 +9,7 @@ server {
   root /var/www/{{ domain_name }};
   location / {
     try_files $uri $uri/ =404;
+    limit_req zone=one burst=1 nodelay;
   }
 }
 
@@ -16,7 +17,7 @@ server {
   listen 80;
   listen [::]:80;
 
-  server_name {{ domain_name }}
+  server_name {{ domain_name }};
   return 301 https://$server_name$request_uri;
 }
  
