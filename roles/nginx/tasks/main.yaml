@@ -19,6 +19,11 @@
     path: /etc/nginx/sites-enabled/default
     state: absent
   notify: restart nginx
+- name: Copy nginx global conf
+  copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+  notify: restart nginx
 - name: Copy nginx site conf
   template:
     src: site.conf.j2
@@ -29,6 +34,7 @@
   notify: restart nginx
 - name: Initial letsencrypt setup
   command:
-    cmd: "certbot run --nginx --non-interactive --agree-tos -m {{ letsencrypt_mail  }} -d {{ domain_name }}"
+    cmd: "certbot certonly --non-interactive --webroot -w /var/www/{{ domain_name}} --agree-tos -m {{ letsencrypt_mail  }} -d {{ domain_name }} --rsa-key-size 4096"
+  notify: restart nginx
 
 
