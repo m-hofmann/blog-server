@@ -13,7 +13,10 @@
   file:
     path: /var/www/{{ domain_name }}
     state: directory
-    mode: '0775'
+    # must be root:root 0755 for sftp chroot to work
+    owner: root
+    group: root
+    mode: '0755'
 - name: delete default nginx site
   file:
     path: /etc/nginx/sites-enabled/default

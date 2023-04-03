@@ -1,0 +1,8 @@
+Match User {{ sftp_user.name }}
+    ChrootDirectory /var/www/{{ domain_name }}
+    ForceCommand internal-sftp
+    PasswordAuthentication no
+    AllowAgentForwarding no
+    AllowTcpForwarding no
+    X11Forwarding no
+    PermitTunnel no
