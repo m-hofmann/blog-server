@@ -1,0 +1,33 @@
+# inspired by https://thnee.se/sftp-isolated-users/
+---
+- name: "Add config block"
+  blockinfile:
+    path: "/etc/ssh/sshd_config"
+    block: "{{ lookup('template', 'sshd_config_block.j2') }}"
+    insertafter: "EOF"
+- name: "Create user {{ sftp_user.name }}"
+  user:
+    name: "{{ sftp_user.name }}"
+    uid: "{{ sftp_user.uid }}"
+    group: "www-data"
+    create_home: true
+    home: "/home/{{ sftp_user.name }}"
+    password_lock: true
+    shell: "/bin/false"
+- name: "Create public web dir /var/www/{{ domain_name }}/public"
+  # this directory is writable for deployuser
+  file:
+    path: "/var/www/{{ domain_name }}/public"
+    mode: '0755'
+    owner: deployuser
+    group: www-data
+    state: directory
+- name: "Add authorized key for {{ sftp_user.name }}"
+  authorized_key:
+    user: "{{ sftp_user.name }}"
+    key: "{{ lookup('file', '~/.ssh/' + sftp_user.key) }}"
+- name: "restart sshd"
+  service:
+    name: "sshd"
+    state: "restarted"
+

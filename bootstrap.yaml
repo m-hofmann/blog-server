@@ -10,4 +10,5 @@
     - firewall
     - unattended-upgrades
     - nginx
+    - sftp-user
        
