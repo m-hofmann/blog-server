@@ -39,5 +39,13 @@
   command:
     cmd: "certbot certonly --non-interactive --webroot -w /var/www/{{ domain_name}} --agree-tos -m {{ letsencrypt_mail  }} -d {{ domain_name }} --rsa-key-size 4096"
   notify: restart nginx
+- name: Configure logrotate for nginx
+  template:
+    src: nginx-logrotate.j2
+    dest: /etc/logrotate.d/nginx
+  vars:
+    access_rotate_days: 0
+    error_rotate_days: 7
+
 
 
