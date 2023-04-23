@@ -44,7 +44,7 @@
     src: nginx-logrotate.j2
     dest: /etc/logrotate.d/nginx
   vars:
-    access_rotate_days: 1
+    access_rotate_days: 0
     error_rotate_days: 7
 
 
